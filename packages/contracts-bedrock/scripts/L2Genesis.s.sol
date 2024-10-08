@@ -255,6 +255,7 @@ contract L2Genesis is Deployer {
             setSuperchainWETH(); // 24
             setETHLiquidity(); // 25
         }
+        setERC20Escrow(); // 27
     }
 
     function setProxyAdmin() public {
@@ -503,6 +504,14 @@ contract L2Genesis is Deployer {
     ///         This contract has no initializer.
     function setSuperchainWETH() internal {
         _setImplementationCode(Predeploys.SUPERCHAIN_WETH);
+    }
+
+    /// @notice This predeploy is following the safety invariant #1.
+    ///         This contract is NOT proxied and the state that is set
+    ///         in the constructor is set manually.
+    function setERC20Escrow() public {
+        console.log("Setting %s implementation at: %s", "ERC20 Escrow", Predeploys.ERC20_ESCROW);
+        vm.etch(Predeploys.ERC20_ESCROW, vm.getDeployedCode("ERC20Escrow.sol:ERC20Escrow"));
     }
 
     /// @notice Sets all the preinstalls.

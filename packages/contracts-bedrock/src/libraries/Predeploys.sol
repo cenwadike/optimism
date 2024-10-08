@@ -99,6 +99,9 @@ library Predeploys {
     /// @notice Address of the OptimismSuperchainERC20Factory predeploy.
     address internal constant OPTIMISM_SUPERCHAIN_ERC20_FACTORY = 0x4200000000000000000000000000000000000026;
 
+    /// @notice Address of the ERC20Escrow predeploy.
+    address internal constant ERC20_ESCROW = 0x4200000000000000000000000000000000000027;
+
     /// @notice Returns the name of the predeploy at the given address.
     function getName(address _addr) internal pure returns (string memory out_) {
         require(isPredeployNamespace(_addr), "Predeploys: address must be a predeploy");
@@ -128,6 +131,7 @@ library Predeploys {
         if (_addr == SUPERCHAIN_WETH) return "SuperchainWETH";
         if (_addr == ETH_LIQUIDITY) return "ETHLiquidity";
         if (_addr == OPTIMISM_SUPERCHAIN_ERC20_FACTORY) return "OptimismSuperchainERC20Factory";
+        if (_addr == ERC20_ESCROW) return "ERC20Escrow";
         revert("Predeploys: unnamed predeploy");
     }
 
@@ -146,7 +150,7 @@ library Predeploys {
             || _addr == L1_FEE_VAULT || _addr == SCHEMA_REGISTRY || _addr == EAS || _addr == GOVERNANCE_TOKEN
             || (_useInterop && _addr == CROSS_L2_INBOX) || (_useInterop && _addr == L2_TO_L2_CROSS_DOMAIN_MESSENGER)
             || (_useInterop && _addr == SUPERCHAIN_WETH) || (_useInterop && _addr == ETH_LIQUIDITY)
-            || (_useInterop && _addr == OPTIMISM_SUPERCHAIN_ERC20_FACTORY);
+            || (_useInterop && _addr == OPTIMISM_SUPERCHAIN_ERC20_FACTORY) || (_useInterop && _addr == ERC20_ESCROW);
     }
 
     function isPredeployNamespace(address _addr) internal pure returns (bool) {
